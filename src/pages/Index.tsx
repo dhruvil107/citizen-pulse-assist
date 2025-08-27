@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/layout/Navbar";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import cityBackground from "@/assets/city-background.jpg";
 import { 
   MapPin, 
   Zap, 
@@ -17,34 +19,36 @@ import {
 } from "lucide-react";
 
 const Index = () => {
+  const { t } = useLanguage();
+  
   const features = [
     {
       icon: Smartphone,
-      title: "Easy Reporting",
-      description: "Submit complaints with photo, location, and description in seconds"
+      title: t('easyReporting'),
+      description: t('easyReportingDesc')
     },
     {
       icon: Bot,
-      title: "AI-Powered",
-      description: "Automatic categorization and department routing using AI"
+      title: t('aiPowered'),
+      description: t('aiPoweredDesc')
     },
     {
       icon: Zap,
-      title: "Real-time Tracking",
-      description: "Track your complaint status from submission to resolution"
+      title: t('realTimeTracking'),
+      description: t('realTimeTrackingDesc')
     },
     {
       icon: Globe,
-      title: "Bilingual Support",
-      description: "Available in English and Gujarati for better accessibility"
+      title: t('bilingualSupport'),
+      description: t('bilingualSupportDesc')
     }
   ];
 
   const stats = [
-    { label: "Complaints Resolved", value: "2,847", icon: CheckCircle },
-    { label: "Active Users", value: "15,623", icon: Users },
-    { label: "Avg Response Time", value: "2.3 days", icon: Clock },
-    { label: "Success Rate", value: "94%", icon: Shield }
+    { label: t('complaintsResolved'), value: "2,847", icon: CheckCircle },
+    { label: t('activeUsers'), value: "15,623", icon: Users },
+    { label: t('avgResponseTime'), value: "2.3 days", icon: Clock },
+    { label: t('successRate'), value: "94%", icon: Shield }
   ];
 
   return (
@@ -52,33 +56,41 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={cityBackground} 
+            alt="City background"
+            className="w-full h-full object-cover opacity-10"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/95 to-background/85" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center">
             <Badge variant="secondary" className="mb-6 px-4 py-2">
               <Zap className="w-4 h-4 mr-2" />
               Smart Civic Engagement Platform
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Your Voice,{" "}
+              {t('heroTitle').split(', ')[0]},{" "}
               <span className="bg-gradient-hero bg-clip-text text-transparent">
-                Your City
+                {t('heroTitle').split(', ')[1]}
               </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Report civic issues effortlessly with AI-powered categorization, real-time tracking, 
-              and bilingual support. Making cities better, one complaint at a time.
+              {t('heroSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link to="/complaint">
                 <Button variant="hero" size="lg" className="min-w-48">
-                  Report an Issue
+                  {t('reportIssue')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/about">
                 <Button variant="outline" size="lg" className="min-w-48">
-                  Learn More
+                  {t('learnMore')}
                 </Button>
               </Link>
             </div>
@@ -173,8 +185,8 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/services">
-              <Button variant="outline" size="lg" className="min-w-48 border-white text-white hover:bg-white hover:text-primary">
-                View Services
+              <Button variant="outline" size="lg" className="min-w-48 border-primary text-primary hover:bg-primary hover:text-white">
+                {t('viewServices')}
               </Button>
             </Link>
           </div>

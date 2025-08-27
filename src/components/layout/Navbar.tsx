@@ -1,10 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, MapPin } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, MapPin, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems = [
+    { name: t('home'), href: "/" },
+    { name: t('about'), href: "/about" },
+    { name: t('services'), href: "/services" },
+    { name: t('complaintProgress'), href: "/complaint-progress" },
+    { name: t('contact'), href: "/contact" }
+  ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'gu' : 'en');
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -22,38 +37,63 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/services" className="text-foreground/80 hover:text-primary transition-colors">
-              Services
-            </Link>
-            <Link to="/about" className="text-foreground/80 hover:text-primary transition-colors">
-              About
-            </Link>
-            <Link to="/contact" className="text-foreground/80 hover:text-primary transition-colors">
-              Contact
-            </Link>
-            <Link to="/complaint" className="text-foreground/80 hover:text-primary transition-colors">
-              Report Issue
-            </Link>
+            <nav className="flex space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    location.pathname === item.href
+                      ? "text-primary"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Language Toggle */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleLanguage}
+              className="flex items-center space-x-1"
+            >
+              <Globe className="h-4 w-4" />
+              <span>{language === 'en' ? 'ગુ' : 'EN'}</span>
+            </Button>
+
             <div className="flex items-center space-x-3">
               <Link to="/login">
                 <Button variant="outline" size="sm">
-                  Login
+                  {t('login')}
                 </Button>
               </Link>
               <Link to="/signup">
                 <Button variant="hero" size="sm">
-                  Sign Up
+                  {t('signup')}
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu */}
+          <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleLanguage}
+              className="flex items-center space-x-1 p-2"
+            >
+              <Globe className="h-4 w-4" />
+              <span className="text-xs">{language === 'en' ? 'ગુ' : 'EN'}</span>
+            </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
+              className="p-2"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -65,43 +105,29 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-background border-t border-border">
           <div className="px-4 py-6 space-y-4">
-            <Link
-              to="/services"
-              className="block text-foreground/80 hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Services
-            </Link>
-            <Link
-              to="/about"
-              className="block text-foreground/80 hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className="block text-foreground/80 hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/complaint"
-              className="block text-foreground/80 hover:text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Report Issue
-            </Link>
-            <div className="flex flex-col space-y-3 pt-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`block text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === item.href
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <div className="flex flex-col space-y-3 pt-4 border-t border-border">
               <Link to="/login" onClick={() => setIsOpen(false)}>
                 <Button variant="outline" className="w-full">
-                  Login
+                  {t('login')}
                 </Button>
               </Link>
               <Link to="/signup" onClick={() => setIsOpen(false)}>
                 <Button variant="hero" className="w-full">
-                  Sign Up
+                  {t('signup')}
                 </Button>
               </Link>
             </div>

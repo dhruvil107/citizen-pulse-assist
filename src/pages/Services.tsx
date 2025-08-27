@@ -1,122 +1,79 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import Navbar from "@/components/layout/Navbar";
+import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
+  Zap, 
   Wrench, 
-  Lightbulb, 
   Droplets, 
-  Trash2, 
-  Car, 
-  TreePine,
+  Car,
   Clock,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
+  ArrowRight
 } from "lucide-react";
 
+// Import project images
+import smartRoadsImg from "@/assets/project-smart-roads.jpg";
+import wasteManagementImg from "@/assets/project-waste-management.jpg";
+import trafficAIImg from "@/assets/project-traffic-ai.jpg";
+import waterMonitoringImg from "@/assets/project-water-monitoring.jpg";
+
 const Services = () => {
-  const services = [
+  const { t } = useLanguage();
+
+  const upcomingProjects = [
     {
       id: 1,
-      title: "Road Repair - MG Road",
-      category: "Roads & Infrastructure",
-      description: "Pothole repair and road resurfacing on MG Road from City Center to Railway Station",
-      department: "Public Works Department",
-      progress: 75,
-      status: "In Progress",
-      priority: "High",
-      estimatedCompletion: "2024-01-15",
+      title: t('smartRoads'),
+      description: t('smartRoadsDesc'),
+      category: "Infrastructure",
       icon: Wrench,
-      color: "bg-blue-500"
+      image: smartRoadsImg,
+      launchDate: "Q2 2024",
+      status: "Development"
     },
     {
       id: 2,
-      title: "Street Light Installation - Phase 2",
-      category: "Street Lighting",
-      description: "Installing LED street lights in residential areas of Sector 7 and 8",
-      department: "Electrical Department",
-      progress: 45,
-      status: "In Progress", 
-      priority: "Medium",
-      estimatedCompletion: "2024-01-20",
-      icon: Lightbulb,
-      color: "bg-yellow-500"
+      title: t('smartWaste'),
+      description: t('smartWasteDesc'),
+      category: "Environment",
+      icon: AlertTriangle,
+      image: wasteManagementImg,
+      launchDate: "Q2 2024",
+      status: "Planning"
     },
     {
       id: 3,
-      title: "Drainage System Upgrade",
-      category: "Water & Drainage",
-      description: "Upgrading storm drainage system in flood-prone areas of the city",
-      department: "Water Management",
-      progress: 30,
-      status: "In Progress",
-      priority: "High",
-      estimatedCompletion: "2024-02-10",
-      icon: Droplets,
-      color: "bg-cyan-500"
+      title: t('trafficAI'),
+      description: t('trafficAIDesc'),
+      category: "Transportation",
+      icon: Car,
+      image: trafficAIImg,
+      launchDate: "Q3 2024", 
+      status: "Research"
     },
     {
       id: 4,
-      title: "Waste Collection Optimization",
-      category: "Waste Management", 
-      description: "Implementing smart waste collection routes and schedules citywide",
-      department: "Sanitation Department",
-      progress: 60,
-      status: "In Progress",
-      priority: "Medium",
-      estimatedCompletion: "2024-01-25",
-      icon: Trash2,
-      color: "bg-green-500"
-    },
-    {
-      id: 5,
-      title: "Traffic Signal Modernization",
-      category: "Traffic Issues",
-      description: "Upgrading traffic signals with smart timing and pedestrian crossing systems",
-      department: "Traffic Police",
-      progress: 85,
-      status: "Near Completion",
-      priority: "High", 
-      estimatedCompletion: "2024-01-12",
-      icon: Car,
-      color: "bg-red-500"
-    },
-    {
-      id: 6,
-      title: "City Park Renovation",
-      category: "Parks & Recreation",
-      description: "Complete renovation of Central City Park including playground and walking tracks",
-      department: "Parks Department",
-      progress: 20,
-      status: "Planning",
-      priority: "Low",
-      estimatedCompletion: "2024-03-15",
-      icon: TreePine,
-      color: "bg-emerald-500"
+      title: t('waterMonitoring'),
+      description: t('waterMonitoringDesc'),
+      category: "Utilities",
+      icon: Droplets,
+      image: waterMonitoringImg,
+      launchDate: "Q3 2024",
+      status: "Planning"
     }
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "In Progress":
+      case "Development":
         return "bg-blue-100 text-blue-800";
-      case "Near Completion":
-        return "bg-green-100 text-green-800";
       case "Planning":
         return "bg-orange-100 text-orange-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "High":
-        return "bg-red-100 text-red-800";
-      case "Medium":
-        return "bg-yellow-100 text-yellow-800";
-      case "Low":
-        return "bg-green-100 text-green-800";
+      case "Research":
+        return "bg-purple-100 text-purple-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -124,12 +81,12 @@ const Services = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "In Progress":
-        return <Clock className="h-4 w-4" />;
-      case "Near Completion":
-        return <CheckCircle className="h-4 w-4" />;
+      case "Development":
+        return <Zap className="h-4 w-4" />;
       case "Planning":
-        return <AlertTriangle className="h-4 w-4" />;
+        return <Clock className="h-4 w-4" />;
+      case "Research":
+        return <CheckCircle className="h-4 w-4" />;
       default:
         return <Clock className="h-4 w-4" />;
     }
@@ -142,73 +99,88 @@ const Services = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
+          <Badge variant="secondary" className="mb-6 px-4 py-2">
+            <Zap className="w-4 h-4 mr-2" />
+            {t('comingSoon')}
+          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Services in Progress
+            {t('upcomingProjects')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Track ongoing civic improvement projects across the city. See real-time progress 
-            and estimated completion dates for various infrastructure initiatives.
+            {t('upcomingSubtitle')}
           </p>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <Card className="text-center shadow-card">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary mb-1">6</div>
-              <div className="text-sm text-muted-foreground">Active Projects</div>
+              <div className="text-2xl font-bold text-primary mb-1">4</div>
+              <div className="text-sm text-muted-foreground">Projects in Pipeline</div>
             </CardContent>
           </Card>
           <Card className="text-center shadow-card">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-success mb-1">12</div>
-              <div className="text-sm text-muted-foreground">Completed This Month</div>
+              <div className="text-2xl font-bold text-success mb-1">Q2 2024</div>
+              <div className="text-sm text-muted-foreground">First Launch</div>
             </CardContent>
           </Card>
           <Card className="text-center shadow-card">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-warning mb-1">₹2.4Cr</div>
-              <div className="text-sm text-muted-foreground">Budget Allocated</div>
+              <div className="text-2xl font-bold text-warning mb-1">₹5.2Cr</div>
+              <div className="text-sm text-muted-foreground">Investment Planned</div>
             </CardContent>
           </Card>
           <Card className="text-center shadow-card">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-secondary mb-1">18</div>
-              <div className="text-sm text-muted-foreground">Days Avg Completion</div>
+              <div className="text-2xl font-bold text-secondary mb-1">50K+</div>
+              <div className="text-sm text-muted-foreground">Citizens to Benefit</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          {services.map((service) => {
-            const IconComponent = service.icon;
+        {/* Projects Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {upcomingProjects.map((project) => {
+            const IconComponent = project.icon;
             return (
-              <Card key={service.id} className="shadow-card hover:shadow-primary transition-all duration-300">
+              <Card key={project.id} className="shadow-card hover:shadow-primary transition-all duration-300 overflow-hidden">
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  <div className="absolute top-4 right-4">
+                    <Badge 
+                      variant="secondary" 
+                      className={`${getStatusColor(project.status)} bg-white/90 backdrop-blur-sm`}
+                    >
+                      {getStatusIcon(project.status)}
+                      <span className="ml-1">{project.status}</span>
+                    </Badge>
+                  </div>
+                </div>
+
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-3">
-                      <div className={`p-2 ${service.color} rounded-lg`}>
+                      <div className="p-2 bg-gradient-primary rounded-lg">
                         <IconComponent className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <CardTitle className="text-lg mb-1">{service.title}</CardTitle>
-                        <div className="text-sm text-muted-foreground mb-2">
-                          {service.department}
-                        </div>
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          <Badge 
-                            variant="secondary" 
-                            className={getStatusColor(service.status)}
-                          >
-                            {getStatusIcon(service.status)}
-                            <span className="ml-1">{service.status}</span>
+                        <CardTitle className="text-lg mb-2">{project.title}</CardTitle>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="outline">
+                            {project.category}
                           </Badge>
-                          <Badge 
-                            variant="outline"
-                            className={getPriorityColor(service.priority)}
-                          >
-                            {service.priority} Priority
+                          <Badge variant="secondary" className="text-primary">
+                            Launch: {project.launchDate}
                           </Badge>
                         </div>
                       </div>
@@ -216,36 +188,14 @@ const Services = () => {
                   </div>
                 </CardHeader>
 
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {service.description}
-                  </p>
-
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-muted-foreground">Progress</span>
-                        <span className="font-medium">{service.progress}%</span>
-                      </div>
-                      <Progress value={service.progress} className="h-2" />
+                <CardContent className="pt-0">
+                  <div className="bg-muted/30 rounded-lg p-4 text-center">
+                    <div className="text-lg font-semibold text-primary mb-2">
+                      {t('comingSoon')}
                     </div>
-
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Est. Completion:</span>
-                      <span className="font-medium">
-                        {new Date(service.estimatedCompletion).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </span>
-                    </div>
-
-                    <div className="pt-2">
-                      <Badge variant="outline" className="text-xs">
-                        Category: {service.category}
-                      </Badge>
-                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      This exciting project is currently under development. Stay tuned for updates!
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -253,21 +203,36 @@ const Services = () => {
           })}
         </div>
 
+        {/* CodeBlazers Attribution */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center px-6 py-3 bg-gradient-primary rounded-lg text-white font-semibold">
+            <Zap className="w-5 h-5 mr-2" />
+            {t('developedBy')}
+          </div>
+        </div>
+
         {/* Call to Action */}
-        <div className="mt-12 text-center bg-muted/30 rounded-lg p-8">
+        <div className="text-center bg-muted/30 rounded-lg p-8">
           <h3 className="text-2xl font-bold text-foreground mb-4">
-            Want to report a new issue?
+            Current Services Available
           </h3>
           <p className="text-muted-foreground mb-6">
-            Help us identify problems in your area and we'll add them to our improvement pipeline.
+            While we prepare these exciting new features, check out our current complaint tracking system to see ongoing city improvements.
           </p>
-          <div className="flex justify-center">
-            <a 
-              href="/complaint" 
+          <div className="flex justify-center gap-4">
+            <Link 
+              to="/complaint-progress" 
               className="inline-flex items-center px-6 py-3 bg-gradient-hero text-white rounded-lg hover:opacity-90 transition-opacity font-semibold"
             >
-              Submit New Complaint
-            </a>
+              View Current Progress
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+            <Link 
+              to="/complaint" 
+              className="inline-flex items-center px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-colors font-semibold"
+            >
+              Report New Issue
+            </Link>
           </div>
         </div>
       </div>

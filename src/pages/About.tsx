@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/layout/Navbar";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
+import teamPhoto from "@/assets/team-photo.jpg";
 import { 
   MapPin, 
   Users, 
@@ -18,6 +20,8 @@ import {
 } from "lucide-react";
 
 const About = () => {
+  const { t } = useLanguage();
+  
   const features = [
     {
       icon: Bot,
