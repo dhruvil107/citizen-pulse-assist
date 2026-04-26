@@ -5,10 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MapPin, Mail, Lock, ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
+<<<<<<< HEAD
 
   const [userType, setUserType] = React.useState<'user' | 'admin'>('user');
   const navigate = useNavigate();
@@ -20,6 +24,45 @@ const Login = () => {
     } else {
       // User login logic or redirect
       navigate('/');
+=======
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast({
+          title: "Login Failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Login Successful",
+          description: "Welcome back to Citymitra!",
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+>>>>>>> 536902a7cf31879d5df8b6b546617c3e668e0292
     }
   };
 
@@ -74,6 +117,8 @@ const Login = () => {
                     type="email"
                     placeholder="your@email.com"
                     className="pl-10"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -88,6 +133,8 @@ const Login = () => {
                     type="password"
                     placeholder="••••••••"
                     className="pl-10"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -109,8 +156,8 @@ const Login = () => {
                 </Link>
               </div>
 
-              <Button type="submit" variant="hero" className="w-full">
-                Sign In
+              <Button type="submit" variant="hero" className="w-full" disabled={isLoading}>
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 

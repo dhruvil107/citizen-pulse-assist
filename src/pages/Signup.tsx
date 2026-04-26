@@ -3,14 +3,73 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MapPin, Mail, Lock, User, ArrowLeft, Phone } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Signup = () => {
-  const handleSignup = (e: React.FormEvent) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Signup logic will be implemented with Supabase
-    console.log("Signup form submitted");
+    setIsLoading(true);
+
+    if (password !== confirmPassword) {
+      toast({
+        title: "Password Mismatch",
+        description: "Passwords do not match",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            phone: phone,
+          }
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Signup Failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Account Created",
+          description: "Please check your email to verify your account",
+        });
+        navigate("/login");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,6 +106,8 @@ const Signup = () => {
                       type="text"
                       placeholder="Dhruvil"
                       className="pl-10"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       required
                     />
                   </div>
@@ -57,6 +118,8 @@ const Signup = () => {
                     id="lastName"
                     type="text"
                     placeholder="Patel"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     required
                   />
                 </div>
@@ -71,6 +134,8 @@ const Signup = () => {
                     type="email"
                     placeholder="dhruvil@email.com"
                     className="pl-10"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -85,6 +150,8 @@ const Signup = () => {
                     type="tel"
                     placeholder="+91 98765 43210"
                     className="pl-10"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </div>
@@ -99,6 +166,8 @@ const Signup = () => {
                     type="password"
                     placeholder="••••••••"
                     className="pl-10"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -113,6 +182,8 @@ const Signup = () => {
                     type="password"
                     placeholder="••••••••"
                     className="pl-10"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -133,8 +204,8 @@ const Signup = () => {
                 </Label>
               </div>
 
-              <Button type="submit" variant="hero" className="w-full">
-                Create Account
+              <Button type="submit" variant="hero" className="w-full" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
