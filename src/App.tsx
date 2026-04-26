@@ -13,6 +13,10 @@ import ComplaintProgress from "./pages/ComplaintProgress";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import ComplaintTracker from "./pages/ComplaintTracker";
+import ComplaintStatus from "./pages/ComplaintStatus";
+import AdminPanel from "./pages/AdminPanel";
+// ...existing code...
 
 const queryClient = new QueryClient();
 
@@ -32,6 +36,10 @@ const App = () => (
             <Route path="/complaint-progress" element={<ComplaintProgress />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+// ...existing code...
+            <Route path="/track-complaint" element={<ComplaintTracker />} />
+            <Route path="/complaint-status" element={<ComplaintStatus />} />
+            <Route path="/admin" element={<AdminPanel />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

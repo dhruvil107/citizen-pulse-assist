@@ -152,7 +152,7 @@ const Services = () => {
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  <div className="absolute inset-0 bg-muted/80" />
                   <div className="absolute top-4 right-4">
                     <Badge 
                       variant="secondary" 
@@ -167,7 +167,7 @@ const Services = () => {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-3">
-                      <div className="p-2 bg-gradient-primary rounded-lg">
+                      <div className="p-2 bg-primary rounded-lg">
                         <IconComponent className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
@@ -179,7 +179,7 @@ const Services = () => {
                           <Badge variant="outline">
                             {project.category}
                           </Badge>
-                          <Badge variant="secondary" className="text-primary">
+                          <Badge variant="secondary" className="text-white bg-primary">
                             Launch: {project.launchDate}
                           </Badge>
                         </div>
@@ -205,7 +205,7 @@ const Services = () => {
 
         {/* CodeBlazers Attribution */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center px-6 py-3 bg-gradient-primary rounded-lg text-white font-semibold">
+          <div className="inline-flex items-center px-6 py-3 bg-primary rounded-lg text-white font-semibold">
             <Zap className="w-5 h-5 mr-2" />
             {t('developedBy')}
           </div>
@@ -222,7 +222,7 @@ const Services = () => {
           <div className="flex justify-center gap-4">
             <Link 
               to="/complaint-progress" 
-              className="inline-flex items-center px-6 py-3 bg-gradient-hero text-white rounded-lg hover:opacity-90 transition-opacity font-semibold"
+              className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity font-semibold"
             >
               View Current Progress
               <ArrowRight className="ml-2 h-5 w-5" />

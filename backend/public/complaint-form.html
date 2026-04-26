@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Submit Complaint - Static</title>
+  <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Submit a Complaint</h1>
+    <form id="complaintForm">
+      <label>Title<br><input name="title" required /></label>
+      <label>Description<br><textarea name="description" required></textarea></label>
+      <label>Location<br><input name="location" /></label>
+      <label>Priority<br>
+        <select name="priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+      <button type="submit">Submit Complaint</button>
+    </form>
+    <div id="message"></div>
+  </main>
+  <script src="/public/js/complaint.js"></script>
+</body>
+</html>

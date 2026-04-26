@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Issue - Citymitra</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link">
+                    <div class="brand-icon">
+                        <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <span class="brand-text">Citymitra</span>
+                </a>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="complaint-progress.html" class="nav-link">Progress</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="track-complaint.html" class="nav-link">Track Complaint</a>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <span>Light</span>
+                    </button>
+                    
+                    <button class="language-toggle" id="languageToggle">
+                        <svg class="language-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span>ગુ</span>
+                    </button>
+
+                    <div class="nav-auth">
+                        <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                        <a href="signup.html" class="btn btn-primary btn-sm">Signup</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="complaint-progress.html" class="mobile-nav-link">Progress</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+                <a href="track-complaint.html" class="mobile-nav-link">Track Complaint</a>
+                
+                <div class="mobile-auth">
+                    <a href="login.html" class="btn btn-outline btn-full">Login</a>
+                    <a href="signup.html" class="btn btn-primary btn-full">Signup</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Complaint Form -->
+    <div class="complaint-container">
+        <!-- Header -->
+        <div class="complaint-header">
+            <div class="complaint-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </div>
+            <h1 class="complaint-title">Report a Civic Issue</h1>
+            <p class="complaint-subtitle">
+                Help us make your city better by reporting issues. Our AI will automatically categorize 
+                and route your complaint to the appropriate department.
+            </p>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="language-selector">
+            <div class="language-toggle-group">
+                <button class="lang-btn active" data-lang="en">
+                    <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>English</span>
+                </button>
+                <button class="lang-btn" data-lang="gu">
+                    <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>ગુજરાતી</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Complaint Form Card -->
+        <div class="complaint-card">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title-with-icon">
+                        <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <h3 class="card-title">Complaint Details</h3>
+                    </div>
+                    <p class="card-description">
+                        Fill in the details below. Our AI will help categorize your issue automatically.
+                    </p>
+                </div>
+
+                <div class="card-content">
+                    <form id="complaintForm" class="complaint-form">
+                        <!-- Aadhaar Verification -->
+                        <div class="form-group">
+                            <label for="aadhaar" class="form-label">Aadhaar Number (for identity verification)</label>
+                            <input type="text" id="aadhaar" name="aadhaar" class="form-input" 
+                                   placeholder="Enter 12-digit Aadhaar number" 
+                                   maxlength="12" pattern="\d{12}" required>
+                            <button type="button" class="btn btn-outline btn-sm" id="sendOtpBtn">Send OTP</button>
+                            
+                            <div id="otpSection" class="otp-section hidden">
+                                <input type="text" id="otp" name="otp" class="form-input" 
+                                       placeholder="Enter OTP" maxlength="6" pattern="\d{6}">
+                                <button type="button" class="btn btn-outline btn-sm" id="verifyOtpBtn">Verify OTP</button>
+                            </div>
+                            
+                            <div id="otpVerified" class="otp-verified hidden">
+                                <span class="success-text">Aadhaar verified</span>
+                            </div>
+                        </div>
+
+                        <!-- Reporter Name -->
+                        <div class="form-group">
+                            <label for="reporterName" class="form-label">Your Name</label>
+                            <input type="text" id="reporterName" name="reporterName" 
+                                   class="form-input" placeholder="Dhruvil" value="Dhruvil" required>
+                        </div>
+
+                        <!-- Issue Title -->
+                        <div class="form-group">
+                            <label for="title" class="form-label">Issue Title</label>
+                            <input type="text" id="title" name="title" class="form-input" 
+                                   placeholder="e.g., Pothole on Main Street" required>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category" class="form-label">
+                                Category
+                                <span class="label-note">(AI will suggest based on description)</span>
+                            </label>
+                            <select id="category" name="category" class="form-select">
+                                <option value="">Select category or let AI decide</option>
+                                <option value="Roads & Infrastructure">Roads & Infrastructure</option>
+                                <option value="Street Lighting">Street Lighting</option>
+                                <option value="Water & Drainage">Water & Drainage</option>
+                                <option value="Waste Management">Waste Management</option>
+                                <option value="Traffic Issues">Traffic Issues</option>
+                                <option value="Public Safety">Public Safety</option>
+                                <option value="Parks & Recreation">Parks & Recreation</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" name="description" class="form-textarea" rows="4" 
+                                      placeholder="Describe the issue in detail. Include when you first noticed it, its severity, and any other relevant information..." required></textarea>
+                        </div>
+
+                        <!-- Photo Upload -->
+                        <div class="form-group">
+                            <label for="photo" class="form-label">
+                                Upload Photo
+                                <span class="label-note">(AI will analyze for better categorization)</span>
+                            </label>
+                            <div class="file-upload-area">
+                                <input type="file" id="photo" name="photo" class="file-input" accept="image/*">
+                                <label for="photo" class="file-upload-label">
+                                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17,8 12,3 7,8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    <span class="upload-text">Click to upload photo</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="location" class="form-label">Location</label>
+                            <div class="location-input-group">
+                                <input type="text" id="location" name="location" class="form-input" 
+                                       placeholder="Enter address or landmark" required>
+                                <button type="button" class="btn btn-outline btn-sm" id="useGpsBtn">
+                                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    Use GPS
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Priority -->
+                        <div class="form-group">
+                            <label for="priority" class="form-label">Priority Level</label>
+                            <select id="priority" name="priority" class="form-select">
+                                <option value="">Select priority</option>
+                                <option value="low">Low - Minor inconvenience</option>
+                                <option value="medium">Medium - Moderate issue</option>
+                                <option value="high">High - Safety concern</option>
+                                <option value="urgent">Urgent - Immediate action needed</option>
+                            </select>
+                        </div>
+
+                        <!-- AI Features Info -->
+                        <div class="ai-info-card">
+                            <div class="ai-info-content">
+                                <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                                <div class="ai-info-text">
+                                    <h4 class="ai-info-title">AI-Powered Processing</h4>
+                                    <p class="ai-info-description">
+                                        Once submitted, our AI will automatically categorize your complaint and route it to the appropriate department for faster resolution.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Buttons -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-hero btn-lg">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                                </svg>
+                                Submit Complaint
+                            </button>
+                            <button type="button" class="btn btn-outline btn-lg">Save Draft</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Process Steps -->
+        <div class="process-card">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">What happens next?</h3>
+                </div>
+                <div class="card-content">
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4 class="step-title">AI Analysis & Routing</h4>
+                                <p class="step-description">
+                                    Your complaint is automatically categorized and sent to the relevant department
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number step-number-2">2</div>
+                            <div class="step-content">
+                                <h4 class="step-title">Department Review</h4>
+                                <p class="step-description">
+                                    The assigned department reviews your complaint and begins investigation
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="step-number step-number-3">3</div>
+                            <div class="step-content">
+                                <h4 class="step-title">Resolution & Update</h4>
+                                <p class="step-description">
+                                    You receive updates on progress and notification when the issue is resolved
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3 class="modal-title">Complaint Submitted!</h3>
+                <p class="modal-text">
+                    Your complaint ID is <span id="complaintId" class="complaint-id"></span>. 
+                    Please save this ID to track your complaint.
+                </p>
+                <button class="btn btn-primary" id="trackComplaintBtn">Track Complaint</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="../js/complaint-form.js"></script>
+</body>
+</html>
+

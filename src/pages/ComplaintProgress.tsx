@@ -13,88 +13,59 @@ import {
   CheckCircle,
   AlertTriangle
 } from "lucide-react";
+import React, { useEffect, useState } from "react";
+
+type Complaint = {
+  _id: string;
+  complaintId?: number;
+  title: string;
+  description: string;
+  status: string;
+  createdAt?: string;
+  department?: string;
+  category?: string;
+  progress?: number;
+  priority?: string;
+  estimatedCompletion?: string;
+};
+
+const iconMap: Record<string, any> = {
+  "Roads & Infrastructure": Wrench,
+  "Street Lighting": Lightbulb,
+  "Water & Drainage": Droplets,
+  "Waste Management": Trash2,
+  "Traffic Issues": Car,
+  "Parks & Recreation": TreePine,
+};
+
+const colorMap: Record<string, string> = {
+  "Roads & Infrastructure": "bg-blue-500",
+  "Street Lighting": "bg-yellow-500",
+  "Water & Drainage": "bg-cyan-500",
+  "Waste Management": "bg-green-500",
+  "Traffic Issues": "bg-red-500",
+  "Parks & Recreation": "bg-emerald-500",
+};
 
 const Services = () => {
-  const services = [
-    {
-      id: 1,
-      title: "Road Repair - MG Road",
-      category: "Roads & Infrastructure",
-      description: "Pothole repair and road resurfacing on MG Road from City Center to Railway Station",
-      department: "Public Works Department",
-      progress: 75,
-      status: "In Progress",
-      priority: "High",
-      estimatedCompletion: "2024-01-15",
-      icon: Wrench,
-      color: "bg-blue-500"
-    },
-    {
-      id: 2,
-      title: "Street Light Installation - Phase 2",
-      category: "Street Lighting",
-      description: "Installing LED street lights in residential areas of Sector 7 and 8",
-      department: "Electrical Department",
-      progress: 45,
-      status: "In Progress", 
-      priority: "Medium",
-      estimatedCompletion: "2024-01-20",
-      icon: Lightbulb,
-      color: "bg-yellow-500"
-    },
-    {
-      id: 3,
-      title: "Drainage System Upgrade",
-      category: "Water & Drainage",
-      description: "Upgrading storm drainage system in flood-prone areas of the city",
-      department: "Water Management",
-      progress: 30,
-      status: "In Progress",
-      priority: "High",
-      estimatedCompletion: "2024-02-10",
-      icon: Droplets,
-      color: "bg-cyan-500"
-    },
-    {
-      id: 4,
-      title: "Waste Collection Optimization",
-      category: "Waste Management", 
-      description: "Implementing smart waste collection routes and schedules citywide",
-      department: "Sanitation Department",
-      progress: 60,
-      status: "In Progress",
-      priority: "Medium",
-      estimatedCompletion: "2024-01-25",
-      icon: Trash2,
-      color: "bg-green-500"
-    },
-    {
-      id: 5,
-      title: "Traffic Signal Modernization",
-      category: "Traffic Issues",
-      description: "Upgrading traffic signals with smart timing and pedestrian crossing systems",
-      department: "Traffic Police",
-      progress: 85,
-      status: "Near Completion",
-      priority: "High", 
-      estimatedCompletion: "2024-01-12",
-      icon: Car,
-      color: "bg-red-500"
-    },
-    {
-      id: 6,
-      title: "City Park Renovation",
-      category: "Parks & Recreation",
-      description: "Complete renovation of Central City Park including playground and walking tracks",
-      department: "Parks Department",
-      progress: 20,
-      status: "Planning",
-      priority: "Low",
-      estimatedCompletion: "2024-03-15",
-      icon: TreePine,
-      color: "bg-emerald-500"
+  const [complaints, setComplaints] = useState<Complaint[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchComplaints();
+  }, []);
+
+  async function fetchComplaints() {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/complaints");
+      const data = await res.json();
+      setComplaints(data);
+    } catch (err) {
+      setComplaints([]);
     }
-  ];
+    setLoading(false);
+  }
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -181,76 +152,87 @@ const Services = () => {
 
         {/* Services Grid */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {services.map((service) => {
-            const IconComponent = service.icon;
-            return (
-              <Card key={service.id} className="shadow-card hover:shadow-primary transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-3">
-                      <div className={`p-2 ${service.color} rounded-lg`}>
-                        <IconComponent className="h-6 w-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="text-lg mb-1">{service.title}</CardTitle>
-                        <div className="text-sm text-muted-foreground mb-2">
-                          {service.department}
+          {loading ? (
+            <div className="col-span-2 text-center py-8">Loading complaints...</div>
+          ) : complaints.length === 0 ? (
+            <div className="col-span-2 text-center py-8">No complaints found.</div>
+          ) : (
+            complaints.map((complaint) => {
+              const IconComponent = iconMap[complaint.category || "Roads & Infrastructure"] || Wrench;
+              const color = colorMap[complaint.category || "Roads & Infrastructure"] || "bg-blue-500";
+              return (
+                <Card key={complaint._id} className="shadow-card hover:shadow-primary transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start space-x-3">
+                        <div className={`p-2 ${color} rounded-lg`}>
+                          <IconComponent className="h-6 w-6 text-white" />
                         </div>
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          <Badge 
-                            variant="secondary" 
-                            className={getStatusColor(service.status)}
-                          >
-                            {getStatusIcon(service.status)}
-                            <span className="ml-1">{service.status}</span>
-                          </Badge>
-                          <Badge 
-                            variant="outline"
-                            className={getPriorityColor(service.priority)}
-                          >
-                            {service.priority} Priority
-                          </Badge>
+                        <div className="flex-1">
+                          <CardTitle className="text-lg mb-1">{complaint.title}</CardTitle>
+                          <div className="text-sm text-muted-foreground mb-2">
+                            {complaint.department || "Citizen"}
+                          </div>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            <Badge 
+                              variant="secondary" 
+                              className={getStatusColor(complaint.status)}
+                            >
+                              {getStatusIcon(complaint.status)}
+                              <span className="ml-1">{complaint.status?.charAt(0).toUpperCase() + complaint.status?.slice(1)}</span>
+                            </Badge>
+                            {complaint.priority && (
+                              <Badge 
+                                variant="outline"
+                                className={getPriorityColor(complaint.priority)}
+                              >
+                                {complaint.priority} Priority
+                              </Badge>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
+                  </CardHeader>
 
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {service.description}
-                  </p>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {complaint.description}
+                    </p>
 
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-muted-foreground">Progress</span>
-                        <span className="font-medium">{service.progress}%</span>
+                    <div className="space-y-3">
+                      <div>
+                        <div className="flex justify-between text-sm mb-2">
+                          <span className="text-muted-foreground">Progress</span>
+                          <span className="font-medium">{complaint.progress ?? 0}%</span>
+                        </div>
+                        <Progress value={complaint.progress ?? 0} className="h-2" />
                       </div>
-                      <Progress value={service.progress} className="h-2" />
-                    </div>
 
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Est. Completion:</span>
-                      <span className="font-medium">
-                        {new Date(service.estimatedCompletion).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </span>
-                    </div>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-muted-foreground">Est. Completion:</span>
+                        <span className="font-medium">
+                          {complaint.estimatedCompletion
+                            ? new Date(complaint.estimatedCompletion).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric'
+                              })
+                            : "-"}
+                        </span>
+                      </div>
 
-                    <div className="pt-2">
-                      <Badge variant="outline" className="text-xs">
-                        Category: {service.category}
-                      </Badge>
+                      <div className="pt-2">
+                        <Badge variant="outline" className="text-xs">
+                          Category: {complaint.category || "General"}
+                        </Badge>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  </CardContent>
+                </Card>
+              );
+            })
+          )}
         </div>
 
         {/* Call to Action */}

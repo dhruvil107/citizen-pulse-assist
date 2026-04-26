@@ -1,3 +1,5 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,10 +9,18 @@ import { Link } from "react-router-dom";
 import { MapPin, Mail, Lock, ArrowLeft } from "lucide-react";
 
 const Login = () => {
+
+  const [userType, setUserType] = React.useState<'user' | 'admin'>('user');
+  const navigate = useNavigate();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Login logic will be implemented with Supabase
-    console.log("Login form submitted");
+    if (userType === 'admin') {
+      navigate('/admin');
+    } else {
+      // User login logic or redirect
+      navigate('/');
+    }
   };
 
   return (
@@ -37,6 +47,24 @@ const Login = () => {
 
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-6">
+              <div className="flex justify-center gap-4 mb-4">
+                <Button
+                  type="button"
+                  variant={userType === 'user' ? 'default' : 'outline'}
+                  className={userType === 'user' ? 'font-bold' : ''}
+                  onClick={() => setUserType('user')}
+                >
+                  User
+                </Button>
+                <Button
+                  type="button"
+                  variant={userType === 'admin' ? 'default' : 'outline'}
+                  className={userType === 'admin' ? 'font-bold' : ''}
+                  onClick={() => setUserType('admin')}
+                >
+                  Admin
+                </Button>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">

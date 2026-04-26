@@ -1,24 +1,43 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, MapPin, Globe } from "lucide-react";
+import { Menu, X, MapPin, Globe, Sun, Moon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
+  const [theme, setTheme] = useState<string>(() => {
+    if (typeof window === 'undefined') return 'light';
+    return localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
 
   const navItems = [
     { name: t('home'), href: "/" },
     { name: t('about'), href: "/about" },
     { name: t('services'), href: "/services" },
     { name: t('complaintProgress'), href: "/complaint-progress" },
-    { name: t('contact'), href: "/contact" }
+    { name: t('contact'), href: "/contact" },
+    { name: 'Track Complaint', href: "/track-complaint" }
   ];
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'gu' : 'en');
+  };
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (
@@ -53,7 +72,21 @@ const Navbar = () => {
               ))}
             </nav>
 
-            {/* Language Toggle */}
+            {/* Theme + Language */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="flex items-center space-x-1"
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+              <span className="hidden lg:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
+            </Button>
             <Button
               variant="outline"
               size="sm"
@@ -80,6 +113,19 @@ const Navbar = () => {
 
           {/* Mobile menu */}
           <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="flex items-center space-x-1 p-2"
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </Button>
             <Button
               variant="outline"
               size="sm"

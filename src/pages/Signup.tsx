@@ -14,7 +14,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4 py-8">
+  <div className="min-h-screen bg-background flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         {/* Back to Home */}
         <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-8 transition-colors">
@@ -25,7 +25,7 @@ const Signup = () => {
         <Card className="shadow-card">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
-              <div className="p-3 bg-gradient-hero rounded-full">
+              <div className="p-3 bg-primary rounded-full">
                 <MapPin className="h-8 w-8 text-white" />
               </div>
             </div>

@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Navbar from "@/components/layout/Navbar";
+// ...existing code...
 import { Link } from "react-router-dom";
 import { 
   Camera, 
@@ -17,25 +18,107 @@ import {
   Zap
 } from "lucide-react";
 import { useState } from "react";
+import SimplePopup from "@/components/ui/SimplePopup";
+import { useNavigate } from "react-router-dom";
 
 const ComplaintForm = () => {
-  const [isLoggedIn] = useState(false); // This will be managed by Supabase auth
+  // Set to true for testing; replace with Supabase auth state in production
+  const [isLoggedIn] = useState(true); // This will be managed by Supabase auth
+  const [complaintId, setComplaintId] = useState("");
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [serialForDay, setSerialForDay] = useState(1); // In real app, fetch from backend
+  const [aadhaar, setAadhaar] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpVerified, setOtpVerified] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [language, setLanguage] = useState("en");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isLoggedIn) {
-      alert("Please login to submit a complaint");
-      return;
+  const handleSendOtp = () => {
+    // Simulate sending OTP (replace with real API call)
+    if (aadhaar.length === 12) {
+      setOtpSent(true);
+  // OTP sent: show a toast or inline message here if needed
+    } else {
+  // Invalid Aadhaar: show a toast or inline message here if needed
     }
-    // Form submission logic will be implemented with Supabase
-    console.log("Complaint form submitted");
+  };
+
+  const handleVerifyOtp = () => {
+    // Simulate OTP verification (replace with real API call)
+    if (otp === "123456") {
+      setOtpVerified(true);
+  // OTP verified: show a toast or inline message here if needed
+    } else {
+  // Invalid OTP: show a toast or inline message here if needed
+    }
+  };
+
+  function generateComplaintId() {
+    const prefix = "CMP";
+    const state = "GJ";
+    const city = "AN";
+    const date = new Date();
+    const dateStr = date.getFullYear().toString() +
+      String(date.getMonth() + 1).padStart(2, '0') +
+      String(date.getDate()).padStart(2, '0');
+    const serial = String(serialForDay).padStart(5, '0');
+    return `${prefix}-${state}-${city}-${dateStr}-${serial}`;
+  }
+
+  const navigate = useNavigate();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Gather form data from fields
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);5
+    const data = {
+      aadhaar,
+      location,
+      title: formData.get("title")?.toString() || "",
+      description: formData.get("description")?.toString() || "",
+      priority: formData.get("priority")?.toString() || "",
+      // Add other fields as needed
+    };
+    try {
+      const response = await fetch("http://localhost:5000/api/complaints", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to submit complaint");
+      }
+      const resData = await response.json();
+  setComplaintId(resData.complaintId ? resData.complaintId.toString() : resData._id || "");
+  setPopupOpen(true);
+  // Optionally reset form fields here
+  // form.reset();
+    } catch (error) {
+      alert("There was an error submitting your complaint. Please try again.");
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const [location, setLocation] = useState("");
+  const handleUseGPS = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation(`${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
+        },
+        (error) => {
+          // Unable to retrieve location: show a toast or inline message here if needed
+        }
+      );
+    } else {
+  // Geolocation not supported: show a toast or inline message here if needed
     }
   };
 
@@ -52,13 +135,18 @@ const ComplaintForm = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SimplePopup open={popupOpen} onClose={() => { setPopupOpen(false); navigate("/complaint-progress"); }}>
+        <div className="text-center">
+          <div className="font-bold text-lg mb-2">Complaint Submitted!</div>
+          <div className="text-muted-foreground text-sm">Your complaint ID is <span className="font-mono font-bold text-primary">{complaintId}</span>. Please save this ID to track your complaint.</div>
+        </div>
+      </SimplePopup>
       <Navbar />
-      
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="p-3 bg-gradient-hero rounded-full">
+            <div className="p-3 bg-primary rounded-full">
               <Camera className="h-8 w-8 text-white" />
             </div>
           </div>
@@ -129,6 +217,48 @@ const ComplaintForm = () => {
 
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Aadhaar Verification */}
+              <div className="space-y-2">
+                <Label htmlFor="aadhaar">Aadhaar Number (for identity verification)</Label>
+                <Input
+                  id="aadhaar"
+                  type="text"
+                  maxLength={12}
+                  minLength={12}
+                  pattern="\d{12}"
+                  placeholder="Enter 12-digit Aadhaar number"
+                  value={aadhaar}
+                  onChange={e => setAadhaar(e.target.value.replace(/\D/g, ""))}
+                  required
+                  disabled={otpSent || otpVerified}
+                />
+                {!otpSent && !otpVerified && (
+                  <Button type="button" variant="outline" onClick={handleSendOtp}>
+                    Send OTP
+                  </Button>
+                )}
+                {otpSent && !otpVerified && (
+                  <div className="flex space-x-2 mt-2">
+                    <Input
+                      id="otp"
+                      type="text"
+                      maxLength={6}
+                      minLength={6}
+                      pattern="\d{6}"
+                      placeholder="Enter OTP"
+                      value={otp}
+                      onChange={e => setOtp(e.target.value.replace(/\D/g, ""))}
+                      required
+                    />
+                    <Button type="button" variant="outline" onClick={handleVerifyOtp}>
+                      Verify OTP
+                    </Button>
+                  </div>
+                )}
+                {otpVerified && (
+                  <div className="text-success font-semibold">Aadhaar verified</div>
+                )}
+              </div>
               {/* Reporter Name */}
               <div className="space-y-2">
                 <Label htmlFor="reporterName">
@@ -233,9 +363,11 @@ const ComplaintForm = () => {
                     type="text"
                     placeholder={language === "en" ? "Enter address or landmark" : "સરનામું અથવા મુખ્ય સ્થળ દાખલ કરો"}
                     className="flex-1"
+                    value={location}
+                    onChange={e => setLocation(e.target.value)}
                     required
                   />
-                  <Button type="button" variant="outline" className="flex items-center space-x-2">
+                  <Button type="button" variant="outline" className="flex items-center space-x-2" onClick={handleUseGPS}>
                     <MapPin className="h-4 w-4" />
                     <span>{language === "en" ? "Use GPS" : "GPS વાપરો"}</span>
                   </Button>
@@ -293,6 +425,14 @@ const ComplaintForm = () => {
                   {language === "en" ? "Save Draft" : "ડ્રાફ્ટ સેવ કરો"}
                 </Button>
               </div>
+              {complaintId && (
+                <div className="mt-6 p-4 bg-success/10 border border-success rounded-lg text-center">
+                  <div className="font-bold text-success mb-2">Complaint Submitted!</div>
+                  <div className="text-sm text-foreground">Your Numeric Complaint ID:</div>
+                  <div className="font-mono text-lg text-success mt-1">{complaintId}</div>
+                  <div className="text-xs text-muted-foreground mt-2">Please save this number to track your complaint.</div>
+                </div>
+              )}
             </form>
           </CardContent>
         </Card>

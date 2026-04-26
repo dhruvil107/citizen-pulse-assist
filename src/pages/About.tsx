@@ -54,7 +54,7 @@ const About = () => {
 
   const team = [
     {
-      name: "Dhruvil Patel",
+  name: "Codeblazers",
       role: "Founder & Lead Developer",
       description: "Passionate about civic technology and creating solutions that bridge the gap between citizens and government services."
     }

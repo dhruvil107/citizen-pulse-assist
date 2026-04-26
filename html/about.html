@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Citymitra</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link">
+                    <div class="brand-icon">
+                        <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <span class="brand-text">Citymitra</span>
+                </a>
+            </div>
+
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link active">About</a>
+                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="complaint-progress.html" class="nav-link">Progress</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="track-complaint.html" class="nav-link">Track Complaint</a>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <span>Light</span>
+                    </button>
+                    
+                    <button class="language-toggle" id="languageToggle">
+                        <svg class="language-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span>ગુ</span>
+                    </button>
+
+                    <div class="nav-auth">
+                        <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                        <a href="signup.html" class="btn btn-primary btn-sm">Signup</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="services.html" class="mobile-nav-link">Services</a>
+                <a href="complaint-progress.html" class="mobile-nav-link">Progress</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+                <a href="track-complaint.html" class="mobile-nav-link">Track Complaint</a>
+                
+                <div class="mobile-auth">
+                    <a href="login.html" class="btn btn-outline btn-full">Login</a>
+                    <a href="signup.html" class="btn btn-primary btn-full">Signup</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Content -->
+    <div class="about-container">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="about-hero">
+                <h1 class="about-title">About Citymitra</h1>
+                <p class="about-subtitle">
+                    Empowering citizens to build better cities through technology and civic engagement
+                </p>
+            </section>
+
+            <!-- Mission Section -->
+            <section class="mission-section">
+                <div class="mission-grid">
+                    <div class="mission-content">
+                        <h2 class="mission-title">Our Mission</h2>
+                        <p class="mission-text">
+                            Citymitra is dedicated to bridging the gap between citizens and city administration through innovative technology solutions. We believe that every citizen should have a voice in shaping their community.
+                        </p>
+                        <p class="mission-text">
+                            Our platform leverages artificial intelligence and modern web technologies to streamline complaint management, improve response times, and create a more transparent governance system.
+                        </p>
+                    </div>
+                    <div class="mission-image">
+                        <div class="mission-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="values-section">
+                <h2 class="values-title">Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="value-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="value-title">Transparency</h3>
+                                <p class="value-description">
+                                    We believe in open communication and transparent processes that build trust between citizens and administration.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="value-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="value-title">Inclusivity</h3>
+                                <p class="value-description">
+                                    Our platform is designed to serve all citizens regardless of language, location, or technical expertise.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="value-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="value-title">Innovation</h3>
+                                <p class="value-description">
+                                    We continuously innovate to improve user experience and make civic engagement more efficient and effective.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section class="team-section">
+                <h2 class="team-title">Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="member-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <h3 class="member-name">Dhruvil Patel</h3>
+                                <p class="member-role">Founder & CEO</p>
+                                <p class="member-bio">
+                                    Passionate about civic technology and community development.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="member-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <h3 class="member-name">Tech Team</h3>
+                                <p class="member-role">Development Team</p>
+                                <p class="member-bio">
+                                    Building innovative solutions for better civic engagement.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="member-avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                                <h3 class="member-name">Community Team</h3>
+                                <p class="member-role">Outreach & Support</p>
+                                <p class="member-bio">
+                                    Connecting with citizens and ensuring their voices are heard.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <div class="footer-brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <span class="footer-brand-text">Citymitra</span>
+                    </div>
+                    <p class="footer-description">
+                        Making cities smarter through citizen engagement and AI-powered solutions.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="services.html" class="footer-link">Services</a>
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <a href="contact.html" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Help Center</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Connect</h4>
+                    <p class="footer-description">
+                        Follow us for updates and civic engagement tips.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Citymitra. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
+

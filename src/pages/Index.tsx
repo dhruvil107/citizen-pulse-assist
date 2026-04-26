@@ -55,8 +55,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle overflow-hidden">
+  {/* Hero Section */}
+  <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -64,7 +64,7 @@ const Index = () => {
             alt="City background"
             className="w-full h-full object-cover opacity-10"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 to-background/85" />
+    <div className="absolute inset-0 bg-gradient-to-r from-background/95 to-background/85" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center">
@@ -122,7 +122,7 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+  <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
@@ -139,7 +139,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+  <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-hero">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -169,7 +169,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-hero">
+  <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-hero">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Make a Difference?
@@ -194,12 +194,12 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12 px-4 sm:px-6 lg:px-8">
+  <footer className="bg-foreground text-background py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="p-2 bg-gradient-hero rounded-lg">
+                <div className="p-2 bg-primary rounded-lg">
                   <MapPin className="h-6 w-6 text-white" />
                 </div>
                 <span className="text-xl font-bold">Citymitra</span>
